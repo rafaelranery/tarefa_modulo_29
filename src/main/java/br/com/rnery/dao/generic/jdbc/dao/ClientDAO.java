@@ -10,7 +10,7 @@ import java.util.List;
 import br.com.rnery.dao.generic.jdbc.ConnectionFactory;
 import br.com.rnery.domain.Client;
 
-public class ClientDAO implements IClientDAO{
+public class ClientDAO extends GenericDAO<Client> implements IClientDAO{
 
 	@Override
 	public Integer register(Client c) throws Exception {
@@ -178,23 +178,5 @@ public class ClientDAO implements IClientDAO{
 	private void addDeleteParams(PreparedStatement stm, Client c) throws SQLException {
 		stm.setString(1, c.getCode());
 	}
-
-	private void closeConnection(Connection connection, PreparedStatement stm, ResultSet rs) {
-		try {
-			if(rs != null && !rs.isClosed()) {
-				rs.close();
-			} 
-			if(stm != null && !stm.isClosed()) {
-				stm.close();
-			}
-			if(connection != null && !connection.isClosed()) {
-				connection.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 
 }
